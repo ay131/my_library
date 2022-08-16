@@ -1,0 +1,104 @@
+<odoo>
+    <data>
+        <!-- ============== [ library book tree view] ============= -->
+        <record model="ir.ui.view" id="library_book_tree_view">
+            <field name="name">library book list</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <tree sample="1" edit="1">
+                    <field name="short_name"/>
+                    <field name="name"/>
+                    <field name="date_release"/>
+                    <field name="author_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+        <!--===================================================================-->
+        <!-- ============== [library book form view ] ============= -->
+        <record id="library_book_form_view" model="ir.ui.view">
+            <field name="name">library book form</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <widget name="web_ribbon" title="Archive" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="author_ids" widget="many2many_tags"/>
+                                <field name="state"/>
+                                <field name="pages"/>
+                                <field name="notes"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="short_name"/>
+                                <field name="date_release"/>
+                                <field name="date_updated"/>
+                                <field name="retail_price"/>
+                                <field name="currency_id"/>
+                                <field name="cover" widget="image" class="oe_avatar"/>
+                                <field name="reader_rating"/>
+                                <field name="out_of_print"/>
+                            </group>
+                            <group>
+                                <field name="description"/>
+                                <field name="cost_price"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- ============================================================= -->
+        <!-- =============== [library_book_view_search]==========================-->
+        <record id="library_book_view_search" model="ir.ui.view">
+            <field name="name">library book search</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name='name'/>
+                    <field name='short_name'/>
+                    <field name='author_ids'/>
+                    <filter string="No Author" name="author_ids" domain="[('author_ids', '=', False)]"/>
+
+                    <searchpanel>
+                        <field name="author_ids" enable_counters="1" select="multi" icon="fa-users"/>
+                    </searchpanel>
+
+                </search>
+            </field>
+        </record>
+        <!-- ============================================================= -->
+        <!-- ============== kanban view  ================================= -->
+        <!--        <record id="library_book_kanban_view" model="ir.ui.view">-->
+        <!--            <field name="name">library book kanban</field>-->
+        <!--            <field name="model">library.book</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <kanban default_group_by="author_ids" records_draggable="0" group_create="0">-->
+        <!--                    <field name="name"/>-->
+        <!--                    <templates>-->
+
+        <!--                    </templates>-->
+        <!--                </kanban>-->
+        <!--            </field>-->
+        <!--        </record>-->
+        <!-- ============================================================= -->
+        <!-- ============== [ library_book_action] ============= -->
+        <record model="ir.actions.act_window" id="library_book_action">
+            <field name="name">Books</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">library.book</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    create your first library book !
+                </p>
+            </field>
+        </record>
+        <!--===================================================================-->
+
+    </data>
+</odoo>
